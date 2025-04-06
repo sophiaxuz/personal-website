@@ -1,4 +1,4 @@
-import { Button, Menu, Portal } from "@chakra-ui/react";
+import { Button, Flex, Menu, Portal, Stack } from "@chakra-ui/react";
 import { RiMailLine } from "react-icons/ri";
 import { Breadcrumb } from "@chakra-ui/react";
 import { LuHouse } from "react-icons/lu";
@@ -48,10 +48,20 @@ export default function Home() {
         </Breadcrumb.List>
       </Breadcrumb.Root>
       <div>
-        <Button m="40px" colorPalette="cyan" size="xl" variant="subtle">
-          <RiMailLine />
-          This is a button
-        </Button>
+        <Stack m="40px" direction="row" gap="4" align="center">
+          <Flex direction="column">
+            <Button m="40px" colorPalette="cyan" size="xl" variant="subtle">
+              <RiMailLine />
+              This is a button
+            </Button>
+            <Button m="40px" loading>
+              Click me
+            </Button>
+            <Button m="40px" loading loadingText="Saving...">
+              Click me
+            </Button>
+          </Flex>
+        </Stack>
       </div>
     </div>
   );
