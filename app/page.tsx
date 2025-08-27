@@ -10,7 +10,7 @@ function useBackgroundMusic() {
 
   useEffect(() => {
     const audio = new Audio("/birthday-short.mp3");
-    audio.loop = false;
+    audio.loop = true;
     audioRef.current = audio;
   }, []);
 
