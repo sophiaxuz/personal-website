@@ -1,8 +1,32 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { confetti } from "@tsparticles/confetti";
 import { motion } from "framer-motion";
+
+function useBackgroundMusic() {
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const [isPlayed, setIsPlayed] = useState(false);
+
+  useEffect(() => {
+    const audio = new Audio("/birthday-short.mp3");
+    audio.loop = false;
+    audioRef.current = audio;
+  }, []);
+
+  const play = () => {
+    if (!isPlayed && audioRef.current) {
+      audioRef.current
+        .play()
+        .then(() => setIsPlayed(true))
+        .catch((e) => {
+          console.log("Audio play failed:", e);
+        });
+    }
+  };
+
+  return { play };
+}
 
 export default function Home() {
   const [showIndex, setShowIndex] = useState(0);
@@ -10,6 +34,7 @@ export default function Home() {
     {}
   );
   const [isReplaying, setIsReplaying] = useState(false);
+  const { play } = useBackgroundMusic();
 
   // 🎉 Confetti effect on mount or replay
   useEffect(() => {
@@ -44,6 +69,7 @@ export default function Home() {
 
   const handleClick = () => {
     if (!isReplaying) {
+      if (showIndex === 0) play(); // 👉 第一次點擊才播放音樂
       setShowIndex((prev) => prev + 1);
     }
   };
